@@ -2,7 +2,6 @@ package me.plasmarob.GlowingPacketExample;
 
 import java.util.List;
 
-import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.v1_12_R1.entity.CraftEntity;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -18,6 +17,7 @@ import net.minecraft.server.v1_12_R1.DataWatcher;
  * - - - DataWatcher.Item<?>( a=DataWatcherObject, b=?=int/float/string/byte)
  */
 public class FirePacketHandler extends ChannelDuplexHandler {
+	@SuppressWarnings("unused")
 	private Player p;
 	private Entity e;
 
@@ -37,16 +37,12 @@ public class FirePacketHandler extends ChannelDuplexHandler {
 		// b = the metadata - a List of DataWatcher.Item<?>
 		
 		if(msg.getClass().getSimpleName().equalsIgnoreCase("PacketPlayOutEntityMetadata")) {
-			////Bukkit.getConsoleSender().sendMessage("Metadata");
 			
 			// Get EntityID
 			Integer eid = (Integer) PacketReflection.getFieldValue(msg, "a");
 			// ? could be Byte, String, Integer, Boolean - this is each Metadata
 			@SuppressWarnings("unchecked")
 			List<DataWatcher.Item<?>> list = (List<DataWatcher.Item<?>>) PacketReflection.getFieldValue(msg, "b");
-			
-			
-			////Bukkit.getConsoleSender().sendMessage("EntityID " + ((CraftEntity)e).getEntityId() + " " + e.getEntityId() + " " + eid);
 			
 			//If we match the entity requested
 			if ( ((CraftEntity)e).getEntityId() == eid) {
@@ -65,6 +61,7 @@ public class FirePacketHandler extends ChannelDuplexHandler {
 					//fire is 0x01 part of the byte, replace it in with binary OR
 					databyte = (byte)(databyte | 0x01); 
 					//Grab the DataWatcherObject and make a new DataWatcher.Item to replace in the list
+					@SuppressWarnings({ "rawtypes", "unchecked" })
 					DataWatcher.Item<Byte> dwib = new DataWatcher.Item( list.get(0).a(), databyte);
 					list.set(0, dwib);
 				}
