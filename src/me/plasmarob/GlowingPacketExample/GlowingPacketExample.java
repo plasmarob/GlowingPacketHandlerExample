@@ -33,9 +33,9 @@ public class GlowingPacketExample extends JavaPlugin implements Listener {
 			
 			// Method in packet Injector made to toggle glow
 			//NOTE: don't run both, they'll fight and you'll get unexpected behavior
-			//packetInjector.addGlow(p, e);
-			//or
-			packetInjector.addFire(p, e);
+			packetInjector.addGlow(p, e);
+			// Or for fun:
+			//packetInjector.addFire(p, e);
 		}
 	}
 }
