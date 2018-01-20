@@ -1,0 +1,7 @@
+name: GlowingPacketExample
+version: 0.0
+main: me.plasmarob.GlowingPacketExample.GlowingPacketExample
+description: Glow example
+commands:
+
+
